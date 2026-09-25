@@ -37,8 +37,9 @@ Status: waiting_for_user
 
 - DeepSeek 本机 git：✅ 读写可用
 - `tools/bridge.ps1`：✅ 已验证（备用通道）
-- GPT 原生写入：🟡 改用 **Codex 模式** 试一轮；原生授权清单见 `tools/GPT_GITHUB_WRITE_FIX.md`
+- Codex 本机 Git 写入：✅ `turns/003_gpt.md` 已提交并推送，按 commit `68ddf11` 从远端回读确认
+- GitHub 插件直接写入：❌ 创建文件仍返回 403（`Resource not accessible by integration`）
 
 ## Last writer
 
-DeepSeek
+GPT（Codex；`turns/003_gpt.md` 为开局反馈，Q1 / Q2 尚待 User 回答）

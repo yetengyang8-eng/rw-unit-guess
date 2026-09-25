@@ -2,7 +2,7 @@
 
 Round: 2 — **已完成（实验达成胜利条件）**
 
-Status: experiment_complete
+Status: experiment_complete — 答案已公开（Mech Engineer）
 
 ## Confirmed clues
 
@@ -21,10 +21,11 @@ Status: experiment_complete
 
 ## Current leading candidates
 
-**已命中。** Round 2 正式猜测经 User 判定为**正确**，实验胜利条件达成。
+**已命中：Mech Engineer**（机械工程师）。Round 2 正式猜测经 User 判定为**正确**，实验胜利条件达成。
 
-> 依据 `README.md` 核心规则第 1 条「真正答案不得提前写入 GitHub」，
-> 被猜中单位的具体名称**不记入本仓库**。命中路径复盘见 `turns/002_deepseek_result.md`。
+- 命中路径复盘见 `turns/002_deepseek_result.md`。
+- **答案公开时序**：于 Round 2 判定**之后**公开，由 User 决定，不违反 `README.md` 规则第 1 条的「不得提前」。
+- **副作用**：GPT 若再对本轮做独立盲测验证，已失去盲测意义。需盲测须另开一轮新单位。
 
 ## 协作机制评估
 

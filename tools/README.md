@@ -46,3 +46,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\bridge.ps1 `
 - 本机凭据：OAuth token，scope 含 `repo`、`workflow`、`gist`，具备写权限。
 - `git push` 与远端 SHA 校验均已通过。
 - `turns/001_gpt.md` 已通过本桥发布，并用 commit SHA 固定地址回读确认（HTTP 200）。
+- 脏工作副本守卫生效（退出码 2，拒绝运行）。
+
+## 相关文档
+
+- **`GPT_GITHUB_WRITE_FIX.md`** — 让 GPT 恢复**原生写入**的排查清单（ChatGPT 模式开关 / GitHub App 安装范围 / 细粒度 PAT）。桥是替代通道，那份文档才是根治。

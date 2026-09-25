@@ -1,55 +1,43 @@
 # Current State
 
-Round: 2 — **已完成（实验达成胜利条件）**
+Round: 3 — **实验 2 开局**（Round 1 / 2 属实验 1，已结束）
 
-Status: experiment_complete — 答案已公开（Mech Engineer）
+Status: waiting_for_user
 
-## Confirmed clues
+## 实验编号
 
-- **科技层级 = T2**（需要先造 T2 建造厂 / 实验室）。来源：Round 1 Q2 回答 B。
-- **领域 / 移动方式：原框架有缺口**。Round 1 Q1 的 A–E 五类「没有严格符合的选项」。
-  - **GPT 纠错（Round 1）**：原因不止「水下」缺失，还有 **DeepSeek 把「陆行」定义为「轮式或履带」，漏掉了步行机甲**。此外 Heavy Sub（纯水下）与 Amphibious Jet（多形态）也不属于任何单类。
-- **Round 2 Q1 = 机械工厂（Mech Factory）**。来源：User 回答 D。
-- **Round 2 Q2 = 建造 / 维修 / 生产单位**。来源：User 回答 A。
-- 上述两问的交叉格在候选矩阵中**唯一对应一个单位**，无需进一步缩小。
+| 实验 | 回合 | 单位 | 状态 |
+|---|---|---|---|
+| 实验 1 | `001` – `002` | Mech Engineer | ✅ 已结束（Round 2 命中） |
+| **实验 2** | **`003` 起** | **未公开** | 🟡 进行中 |
 
-## Rejected candidates
+## Confirmed clues（实验 2）
 
-- Round 1 猜测「T1 陆行单位」→ **错误**。
-- 「Heavy Sub 为唯一高概率候选」的方向 → GPT 否决，DeepSeek 采纳。
-- 全部 T1 / T3 / 实验级 / 战役专属单位（因层级确认为 T2 而排除）。
+暂无。Round 3 提问已发出，等待 User 回答。
 
-## Current leading candidates
+## Rejected candidates（实验 2）
 
-**已命中：Mech Engineer**（机械工程师）。Round 2 正式猜测经 User 判定为**正确**，实验胜利条件达成。
+暂无。
 
-- 命中路径复盘见 `turns/002_deepseek_result.md`。
-- **答案公开时序**：于 Round 2 判定**之后**公开，由 User 决定，不违反 `README.md` 规则第 1 条的「不得提前」。
-- **审计更正**：该名称早在 commit `2306b0e` 就已作为**候选**（来自 GPT 的 T2 机甲名单）存在于仓库；新公开的是**「它被确认命中」这一标注**，而非名称本身。详见 `turns/002_deepseek_result.md` 的诚实边界一节。
-- **副作用**：GPT 若再对本轮做独立盲测验证，已失去盲测意义。需盲测须另开一轮新单位。
+## Current leading candidates（实验 2）
 
-## 协作机制评估
+**刻意为空，且不入库。** 依据实验 1 教训 2：把候选名单写入本仓库会使结果可被反推，破坏盲测。候选推理仅在聊天中进行。
 
-本轮命中是「**GPT 纠错 → 矩阵化提问**」的直接产物：
+## ⚠️ 实验 2 新增纪律（三项，来自实验 1 复盘）
 
-| 环节 | 贡献者 | 内容 |
-|---|---|---|
-| 纠错 | GPT | 指出「陆行 = 轮式或履带」定义过窄，补回步行机甲线 |
-| 结构化 | GPT | 提出「工厂 × 武器」二维矩阵，把开放描述换成封闭枚举 |
-| 提问 | DeepSeek | 采纳矩阵，微调为「工厂 + 能力」 |
-| 命中 | — | (机械工厂, 建造) → 唯一解 |
-
-**若没有 GPT 的纠错，DeepSeek 会沿 Heavy Sub 单线继续提问，轮数会显著增加。** 协作机制有效。
-
-## GPT 写入桥状态
-
-- ✅ **已修复（替代通道）**：`tools/bridge.ps1` 已实现并端到端验证。
-- ✅ `turns/001_gpt.md` 已通过桥发布，并用 commit SHA 固定地址回读确认（HTTP 200）。
-- ⏳ **GPT 侧原生写入仍为 403**，根因在 GitHub 授权层（GitHub App 未对仓库授予 `contents: write`，或 OAuth scope 仅只读）。需在 GitHub 侧授权界面解决。详见 `tools/README.md`。
+1. **开局禁用固定选项** — 实验 1 因「陆行 = 轮式或履带」定义过窄漏掉步行机甲，浪费一轮。实验 2 前几轮一律开放式提问，由 User 用自己的话描述。
+2. **禁止候选名单入库** — 「Mech Engineer」早在 commit `2306b0e` 就作为候选进了仓库，事后公布结果时盲测设计已被削弱。候选池不入库。
+3. **GPT 写入须同守纪律** — User 已将 GPT 切换到 **Codex 模式**，该模式有 git 身份、**可直接写入本仓库**。GPT 只写分析与纠错，**不写候选名单、不写答案**。
 
 ## Protocol
 
 每轮：DeepSeek 提 2 个问题 → User 回答 → DeepSeek 给出正式猜测 → User 判定 → DeepSeek 写 `turns/00N_deepseek.md` → GPT 写 `turns/00N_gpt.md`。
+
+## 工具状态
+
+- DeepSeek 本机 git：✅ 读写可用
+- `tools/bridge.ps1`：✅ 已验证（备用通道）
+- GPT 原生写入：🟡 改用 **Codex 模式** 试一轮；原生授权清单见 `tools/GPT_GITHUB_WRITE_FIX.md`
 
 ## Last writer
 

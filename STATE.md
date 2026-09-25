@@ -156,6 +156,35 @@ DeepSeek 就两处矛盾追加提问，User 回答：
 
 **Round 9 将给出正式猜测。**
 
+## 🎯 Round 9 正式猜测（已提交）
+
+### **实验悬浮型气垫船（`experimentalGunship`）**
+
+**排他性论证（三重独立收敛）**：
+
+1. 原版**只有两个**机制族带「部署」：`mechBunker`（移动炮塔，不可生产）与 `experimentalGunship`。
+   User 说转化物「能生产」⇒ **淘汰 `mechBunker`**。
+2. `isPickableStartingUnit: true` 的原版单位**全库仅 5 个**，其中只有 `experimentalGunship`
+   **同时**满足「可沙盒放置」+「有部署动作」+「可生产」。其余四个（`experimentalDropship`、
+   `experimentalSpider`、`modularSpider`、`example_faction_picker`）**均无部署动作**。
+3. 能生产的原版单位仅 4 个（`combatEngineer` / `experimentalSpider` / `experiementalCarrier` /
+   `experimentalGunship`），**其中只有它有部署动作**。
+
+**七条线索逐项吻合**：HOVER 地面移动 ✅ / 手动 Deploy ✅ / `convertTo` 变他物 ✅ /
+3 秒读条无爆炸效果 ✅ / 生产+功能+防御三性齐备 ✅ / 沙盒可放 ✅ / 原形态不再存续 ✅
+
+**⚠️ 唯一未解矛盾**：User 说「不可逆」，但 `experimental_gunship_landed.ini` 存在
+`[action_1] convertTo: experimentalGunship / text: Undeploy`（数据上可取消部署）。
+DeepSeek 采信七条一致线索、不因单条否定，并已列为本猜测唯一已知风险交 Luna 复核。
+
+完整论证见 `turns/007_deepseek.md`。
+
+## 若猜测错误的修正方向（已备好）
+
+请指出是「地面奔跑」「不可逆」还是「能生产」哪一条被 DeepSeek 误解。
+下一轮将改问**造价量级**与**是否属 `experimental` 实验级**，两问可将剩余候选一次劈开。
+
+
 
 
 ## ⚠️ 实验 2 新增纪律（三项）

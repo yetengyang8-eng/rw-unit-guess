@@ -1,6 +1,6 @@
 # Current State
 
-Round: 3 — **实验 2 开局**（Round 1 / 2 属实验 1，已结束）
+Round: 4 — **实验 2**（Round 1 / 2 属实验 1，已结束）
 
 Status: waiting_for_user
 
@@ -13,33 +13,57 @@ Status: waiting_for_user
 
 ## Confirmed clues（实验 2）
 
-暂无。Round 3 提问已发出，等待 User 回答。
+**Round 3 线索 —— 原样记录 User 原话（不归类）：**
+
+- **Q1 → 「（奔跑）」**
+- **Q2 → 「（牺牲自己，并完成目标）」**
+
+**可从线索稳妥推出的：**
+
+- 它是**会移动的**（不能移动之物不会「奔跑」）→ 可排除固定建筑与静止防御。
+
+**明确标为「未知」的项目**（依据 GPT 提醒：未提及 ≠ 否定）：
+
+- 本质形态（是否常规「单位」、是否为建筑 / 弹体 / 变形体）
+- 部署状态（常态 / 切换后形态 / 部署后状态，三者未区分）
+- 「奔跑」的确切含义（移动方式 / 速度 / 字面提示，三者未区分）
+- 科技层级、生产来源、阵营、造价、出场场景
+- 是否造成伤害、伤害方式
 
 ## Rejected candidates（实验 2）
 
-暂无。
+- 固定建筑、静止防御（与「奔跑」直接矛盾）。
+
+> **已撤回的过强推断**：Round 3 初稿曾写「它不是常规作战单位」。
+> 该推断跨度偏大——一个单位可以**既自我牺牲、又仍是常规作战单位**（如自爆型攻击单位）。
+> 依据 GPT 的方法论提醒撤回。见 `turns/003_deepseek.md`。
 
 ## Current leading candidates（实验 2）
 
-**刻意为空，且不入库。** 依据实验 1 教训 2：把候选名单写入本仓库会使结果可被反推，破坏盲测。候选推理仅在聊天中进行。
+**刻意为空，且不入库。** 依据修订 A：候选名单写入本仓库会使结果可被反推，破坏盲测。
 
 ## ⚠️ 实验 2 新增纪律（三项，来自实验 1 复盘）
 
-1. **开局禁用固定选项** — 实验 1 因「陆行 = 轮式或履带」定义过窄漏掉步行机甲，浪费一轮。实验 2 前几轮一律开放式提问，由 User 用自己的话描述。
-2. **禁止候选名单入库** — 「Mech Engineer」早在 commit `2306b0e` 就作为候选进了仓库，事后公布结果时盲测设计已被削弱。候选池不入库。
-3. **GPT 写入须同守纪律** — User 已将 GPT 切换到 **Codex 模式**，该模式有 git 身份、**可直接写入本仓库**。GPT 只写分析与纠错，**不写候选名单、不写答案**。
+1. **开局禁用固定选项** — 实验 1 因「陆行 = 轮式或履带」定义过窄漏掉步行机甲，浪费一轮。实益是避免 DeepSeek 的知识缺口成为搜索边界。
+2. **禁止候选名单入库** — 「Mech Engineer」早在 commit `2306b0e` 就作为候选进了仓库，事后公布结果时盲测设计已被削弱。
+3. **GPT 写入须同守纪律** — GPT 已具备直写能力。只写分析与纠错，**不写候选名单、不写答案**。
 
 ## Protocol
 
 每轮：DeepSeek 提 2 个问题 → User 回答 → DeepSeek 给出正式猜测 → User 判定 → DeepSeek 写 `turns/00N_deepseek.md` → GPT 写 `turns/00N_gpt.md`。
 
+**新增（实验 2 起）**：GPT 具备直写能力后，**双方并发写入会产生竞争**。
+DeepSeek 每次提交前必须先 `git fetch` 并 rebase 到 `origin/main`，避免覆盖 GPT 的提交。
+
 ## 工具状态
 
-- DeepSeek 本机 git：✅ 读写可用
-- `tools/bridge.ps1`：✅ 已验证（备用通道）
-- Codex 本机 Git 写入：✅ `turns/003_gpt.md` 已提交并推送，按 commit `68ddf11` 从远端回读确认
-- GitHub 插件直接写入：❌ 创建文件仍返回 403（`Resource not accessible by integration`）
+| 通道 | 状态 |
+|---|---|
+| DeepSeek 本机 git | ✅ 读写可用 |
+| `tools/bridge.ps1` | ✅ 已验证（备用通道） |
+| **GPT / Codex 直写** | ✅ **已实测成功**：`68ddf11`（`turns/003_gpt.md`）、`b31c8e8`（STATE 更新）均在远端 |
+| GitHub 插件直写 | ❌ 创建文件仍 403（`Resource not accessible by integration`） |
 
 ## Last writer
 
-GPT（Codex；`turns/003_gpt.md` 为开局反馈，Q1 / Q2 尚待 User 回答）
+DeepSeek

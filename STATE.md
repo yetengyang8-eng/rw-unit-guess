@@ -1,41 +1,53 @@
 # Current State
 
-Round: 2
+Round: 2 — **已完成（实验达成胜利条件）**
 
-Status: waiting_for_user
+Status: experiment_complete
 
 ## Confirmed clues
 
 - **科技层级 = T2**（需要先造 T2 建造厂 / 实验室）。来源：Round 1 Q2 回答 B。
-- **领域 / 移动方式：框架未匹配**。User 表示 Round 1 Q1 的 A–E 五类「没有严格符合的选项」。
+- **领域 / 移动方式：原框架有缺口**。Round 1 Q1 的 A–E 五类「没有严格符合的选项」。
   - **GPT 纠错（Round 1）**：原因不止「水下」缺失，还有 **DeepSeek 把「陆行」定义为「轮式或履带」，漏掉了步行机甲**。此外 Heavy Sub（纯水下）与 Amphibious Jet（多形态）也不属于任何单类。
-
-## 三条主线（GPT 建议，已采纳）
-
-1. **T2 机甲步行线**：Mech Engineer、Minigun Mech、Plasma Mech、Tesla Mech、Heavy Anti-Air Mech、Flame Mech
-2. **纯水下线**：Heavy Sub
-3. **多形态线**：Amphibious Jet、Nautilus
+- **Round 2 Q1 = 机械工厂（Mech Factory）**。来源：User 回答 D。
+- **Round 2 Q2 = 建造 / 维修 / 生产单位**。来源：User 回答 A。
+- 上述两问的交叉格在候选矩阵中**唯一对应一个单位**，无需进一步缩小。
 
 ## Rejected candidates
 
 - Round 1 猜测「T1 陆行单位」→ **错误**。
 - 「Heavy Sub 为唯一高概率候选」的方向 → GPT 否决，DeepSeek 采纳。
+- 全部 T1 / T3 / 实验级 / 战役专属单位（因层级确认为 T2 而排除）。
 
 ## Current leading candidates
 
-Round 2 未锁定具体单位，等待 Q1（生产来源）× Q2（武器能力）答案后收敛。方向性先验：机甲线 ≈55%，多形态线 ≈25%，水下线 ≈20%。
+**已命中。** Round 2 正式猜测经 User 判定为**正确**，实验胜利条件达成。
 
-## 待办：GPT 的 GitHub 写入桥
+> 依据 `README.md` 核心规则第 1 条「真正答案不得提前写入 GitHub」，
+> 被猜中单位的具体名称**不记入本仓库**。命中路径复盘见 `turns/002_deepseek_result.md`。
 
-- **问题**：GPT 写 `turns/001_gpt.md` 时 GitHub 返回 **403**；底层 Git blob 与 GitHub Issue 同样 403。GPT 端插件权限已是 "Allow all actions"，**能稳定读、不能写**。
-- **诊断（DeepSeek）**：ChatGPT 的 GitHub 连接器是**独立于本机 git 的第二条通道**，其 403 与本机环境无关。最可能原因是该连接器/IP 的仓库内容**写权限未授予**（GitHub App 未对 `yetengyang8-eng/rw-unit-guess` 授予 `contents: write`，或 OAuth scope 仅含 `public_repo` 只读）。
-- **计划**：Round 2 猜测完成后，由 DeepSeek 与 User 一起排查并补齐写入授权，使 GPT 能自行完成 `001_gpt.md → 002_deepseek.md` 往返。
+## 协作机制评估
+
+本轮命中是「**GPT 纠错 → 矩阵化提问**」的直接产物：
+
+| 环节 | 贡献者 | 内容 |
+|---|---|---|
+| 纠错 | GPT | 指出「陆行 = 轮式或履带」定义过窄，补回步行机甲线 |
+| 结构化 | GPT | 提出「工厂 × 武器」二维矩阵，把开放描述换成封闭枚举 |
+| 提问 | DeepSeek | 采纳矩阵，微调为「工厂 + 能力」 |
+| 命中 | — | (机械工厂, 建造) → 唯一解 |
+
+**若没有 GPT 的纠错，DeepSeek 会沿 Heavy Sub 单线继续提问，轮数会显著增加。** 协作机制有效。
+
+## GPT 写入桥状态
+
+- ✅ **已修复（替代通道）**：`tools/bridge.ps1` 已实现并端到端验证。
+- ✅ `turns/001_gpt.md` 已通过桥发布，并用 commit SHA 固定地址回读确认（HTTP 200）。
+- ⏳ **GPT 侧原生写入仍为 403**，根因在 GitHub 授权层（GitHub App 未对仓库授予 `contents: write`，或 OAuth scope 仅只读）。需在 GitHub 侧授权界面解决。详见 `tools/README.md`。
 
 ## Protocol
 
 每轮：DeepSeek 提 2 个问题 → User 回答 → DeepSeek 给出正式猜测 → User 判定 → DeepSeek 写 `turns/00N_deepseek.md` → GPT 写 `turns/00N_gpt.md`。
-
-**桥接备注**：GPT 写入桥修复前，GPT 的分析内容由 User 转达，DeepSeek 负责代为归档并标注来源为 GPT。
 
 ## Last writer
 

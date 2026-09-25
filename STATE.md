@@ -25,6 +25,7 @@ Status: experiment_complete — 答案已公开（Mech Engineer）
 
 - 命中路径复盘见 `turns/002_deepseek_result.md`。
 - **答案公开时序**：于 Round 2 判定**之后**公开，由 User 决定，不违反 `README.md` 规则第 1 条的「不得提前」。
+- **审计更正**：该名称早在 commit `2306b0e` 就已作为**候选**（来自 GPT 的 T2 机甲名单）存在于仓库；新公开的是**「它被确认命中」这一标注**，而非名称本身。详见 `turns/002_deepseek_result.md` 的诚实边界一节。
 - **副作用**：GPT 若再对本轮做独立盲测验证，已失去盲测意义。需盲测须另开一轮新单位。
 
 ## 协作机制评估
